@@ -1,16 +1,292 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Karthik Sekar - Resume</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Name – Resume</title>
+  <meta name="description" content="Professional resume of Your Name." />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --card: #ffffff;
+      --text: #1b1f23;
+      --muted: #5b6b7a;
+      --accent: #2b6cb0;
+      --border: #e5e7eb;
+      --chip-bg: #eff6ff;
+      --shadow: 0 1px 2px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.06);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1216;
+        --card: #12161b;
+        --text: #e7edf3;
+        --muted: #9aa6b2;
+        --accent: #7cb3ff;
+        --border: #202630;
+        --chip-bg: #0f1a2b;
+        --shadow: none;
+      }
+      a { color: #9cc4ff; }
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .wrapper {
+      max-width: 1000px;
+      margin: 28px auto 80px;
+      padding: 0 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 24px;
+      background: linear-gradient(180deg, rgba(43,108,176,0.06), transparent);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+    .identity .name {
+      font-size: clamp(24px, 3.2vw, 34px);
+      font-weight: 800;
+      margin: 0;
+      letter-spacing: .2px;
+    }
+    .identity .tagline {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+    .contact {
+      display: grid;
+      gap: 6px;
+      text-align: right;
+      font-size: 0.98rem;
+    }
+    .contact a { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--border); }
+    .contact a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    @media (max-width: 860px) {
+      header { flex-direction: column; align-items: flex-start; }
+      .contact { text-align: left; }
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    aside, section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--accent);
+      margin: 0 0 10px;
+    }
+
+    .summary p { margin: 8px 0 0; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      background: var(--chip-bg);
+      color: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+
+    .job { margin-bottom: 18px; }
+    .job:last-child { margin-bottom: 0; }
+    .job-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 14px;
+      justify-content: space-between;
+    }
+    .job-title { font-weight: 700; }
+    .job-meta { color: var(--muted); }
+    .job-location { color: var(--muted); }
+    .bullets { margin: 8px 0 0 1.05rem; }
+    .bullets li { margin: 6px 0; }
+
+    .edu-item, .cert-item { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; padding: 10px 0; border-bottom: 1px dashed var(--border); }
+    .edu-item:last-child, .cert-item:last-child { border-bottom: 0; }
+    .minor { color: var(--muted); font-size: 0.95rem; }
+
+    .print-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+    .print-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    @media print {
+      .print-btn { display: none; }
+      body { background: #fff; }
+      header, aside, section { box-shadow: none; border-color: #ddd; border-radius: 0; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Karthik Sekar</h1>
-        <p>Lead SDET | Automation | Python | Selenium</p>
-        <button onclick="openResume()">View My Resume</button>
+  <div class="wrapper">
+
+    <!-- HEADER -->
+    <header role="banner" aria-label="Resume header">
+      <div class="identity">
+        <h1 class="name"><!-- TODO: -->Your Name</h1>
+        <p class="tagline"><!-- TODO: -->Role / Specialization · Key Strengths or Industry</p>
+      </div>
+      <address class="contact" aria-label="Contact information">
+        <div>📞 <!-- TODO: -->(+1) 555-123-4567</div>
+        <div>✉️ mailto:your.email@example.com<!-- TODO: -->your.email@example.com</a></div>
+        <div>🔗 https://www.linkedin.com/in/your-link/<!-- TODO: -->linkedin.com/in/your-link</a></div>
+        <div>📍 <!-- TODO: -->City, Province/State, Country</div>
+      </address>
+    </header>
+
+    <div class="grid">
+      <!-- SIDEBAR -->
+      <aside aria-label="Sidebar">
+        <section class="summary" aria-labelledby="summary">
+          <h2 id="summary">High-Level Summary</h2>
+          <p><!-- TODO: -->
+            Outcome-focused [Your Role] with [X]+ years of experience in [domains/industries].
+            Known for [top strengths]. Delivered [notable achievement with metric], and
+            [another impact], using [key tools/tech].
+          </p>
+        </section>
+
+        <section aria-labelledby="skills">
+          <h2 id="skills">Skills</h2>
+          <div class="chips">
+            <!-- TODO: Replace with your skills -->
+            <span class="chip">Project Management</span>
+            <span class="chip">Agile / Scrum</span>
+            <span class="chip">Stakeholder Management</span>
+            <span class="chip">Data Analysis</span>
+            <span class="chip">Azure / AWS</span>
+            <span class="chip">Power BI</span>
+            <span class="chip">SQL</span>
+            <span class="chip">Python</span>
+          </div>
+        </section>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main aria-label="Main content">
+        <section aria-labelledby="experience">
+          <h2 id="experience">Work Experience</h2>
+
+          <!-- EMPLOYER 1 -->
+          <article class="job" aria-labelledby="job1-title">
+            <div class="job-header">
+              <div>
+                <div id="job1-title" class="job-title"><!-- TODO: -->Senior Project Manager</div>
+                <div class="job-meta"><!-- TODO: -->Employer 1 • Full-time</div>
+              </div>
+              <div class="job-meta">
+                <span class="job-location"><!-- TODO: -->Toronto, ON</span> •
+                <time datetime="2021-01"><!-- TODO: -->Jan 2021</time> – <time datetime="2025-08">Present</time>
+              </div>
+            </div>
+            <ul class="bullets">
+              <li><!-- TODO: -->Led a cross-functional team of 12 to deliver a $3.2M digital transformation program on time and 8% under budget.</li>
+              <li><!-- TODO: -->Improved release velocity by 35% by implementing CI/CD and automated testing across 4 product squads.</li>
+              <li><!-- TODO: -->Negotiated vendor contracts, reducing third‑party costs by 18% while improving SLA compliance to 99.5%.</li>
+            </ul>
+          </article>
+
+          <!-- EMPLOYER 2 -->
+          <article class="job" aria-labelledby="job2-title">
+            <div class="job-header">
+              <div>
+                <div id="job2-title" class="job-title"><!-- TODO: -->Project Lead</div>
+                <div class="job-meta"><!-- TODO: -->Employer 2 • Full-time</div>
+              </div>
+              <div class="job-meta">
+                <span class="job-location"><!-- TODO: -->Mississauga, ON</span> •
+                <time datetime="2018-06"><!-- TODO: -->Jun 2018</time> – <time datetime="2020-12"><!-- TODO: -->Dec 2020</time>
+              </div>
+            </div>
+            <ul class="bullets">
+              <li><!-- TODO: -->Managed end‑to‑end delivery of an analytics platform used by 500+ users, enabling 20% faster decision cycles.</li>
+              <li><!-- TODO: -->Established Agile ceremonies and OKRs, increasing stakeholder satisfaction from 7.2 to 9.1/10.</li>
+              <li><!-- TODO: -->Implemented risk management framework reducing critical incidents by 40% YoY.</li>
+            </ul>
+          </article>
+        </section>
+
+        <section aria-labelledby="education">
+          <h2 id="education">Education</h2>
+          <div class="edu-item">
+            <div>
+              <strong><!-- TODO: -->M.S., Information Systems</strong>
+              <div class="minor"><!-- TODO: -->University Name</div>
+            </div>
+            <div class="minor"><time datetime="2018">2018</time></div>
+          </div>
+          <div class="edu-item">
+            <div>
+              <strong><!-- TODO: -->B.Eng., Computer Engineering</strong>
+              <div class="minor"><!-- TODO: -->University Name</div>
+            </div>
+            <div class="minor"><time datetime="2015">2015</time></div>
+          </div>
+        </section>
+
+        <section aria-labelledby="certs">
+          <h2 id="certs">Certifications</h2>
+          <div class="cert-item">
+            <div><strong><!-- TODO: -->PMP</strong> — Project Management Institute</div>
+            <div class="minor"><time datetime="2024">2024</time></div>
+          </div>
+          <div class="cert-item">
+            <div><strong><!-- TODO: -->Certified ScrumMaster (CSM)</strong> — Scrum Alliance</div>
+            <div class="minor"><time datetime="2022">2022</time></div>
+          </div>
+          <div class="cert-item">
+            <div><strong><!-- TODO: -->Microsoft Azure Fundamentals (AZ‑900)</strong> — Microsoft</div>
+            <div class="minor"><time datetime="2021">2021</time></div>
+          </div>
+        </section>
+      </main>
     </div>
-    <script src="script.js"></script>
+  </div>
+
+  <button class="print-btn" aria-label="Download or print resume" onclick="window.print()">🖨️ Download PDF</button>
 </body>
 </html>
