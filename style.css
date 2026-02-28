@@ -28,7 +28,8 @@
 }
 
 /* --- Reset & Base --- */
-* { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
@@ -38,13 +39,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
+img, svg { max-width: 100%; height: auto; }
 
 /* --- Layout --- */
 .wrapper {
   max-width: 1000px;
+  width: 100%;
   margin: 28px auto 80px;
   padding: 0 20px;
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
 }
 
 /* --- Header --- */
@@ -64,26 +72,14 @@ header {
   display: flex;
   align-items: center;
   gap: 18px;
-}
-.monogram {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), #1a4a7a);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 1.25rem;
-  letter-spacing: 1px;
-  flex-shrink: 0;
+  min-width: 0;
 }
 .identity .name {
-  font-size: clamp(28px, 3.8vw, 40px);
+  font-size: clamp(1.4rem, 3.8vw, 2.5rem);
   font-weight: 800;
   margin: 0;
   letter-spacing: .2px;
+  overflow-wrap: break-word;
 }
 .identity .tagline {
   margin: 6px 0 0;
@@ -95,8 +91,17 @@ header {
   gap: 6px;
   text-align: right;
   font-size: 0.98rem;
+  font-style: normal;
+  flex-shrink: 0;
 }
-.contact a { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--border); }
+.contact a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--border);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
 .contact a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
 /* --- Grid --- */
@@ -105,12 +110,6 @@ header {
   grid-template-columns: 300px 1fr;
   gap: 24px;
   margin-top: 24px;
-}
-@media (max-width: 860px) {
-  header { flex-direction: column; align-items: flex-start; }
-  .contact { text-align: left; }
-  .grid { grid-template-columns: 1fr; }
-  aside { position: static; }
 }
 
 /* --- Sidebar --- */
@@ -121,6 +120,7 @@ aside {
   padding: 0;
   box-shadow: var(--shadow);
   align-self: start;
+  min-width: 0;
 }
 aside section {
   border: none;
@@ -134,6 +134,9 @@ aside section:last-child {
 }
 
 /* --- Main Content Sections --- */
+main {
+  min-width: 0;
+}
 main > section {
   background: var(--card);
   border: 1px solid var(--border);
@@ -157,7 +160,12 @@ h2 {
 }
 
 /* --- Summary --- */
-.summary p { margin: 8px 0 0; font-size: 0.93rem; line-height: 1.6; }
+.summary p {
+  margin: 8px 0 0;
+  font-size: 0.93rem;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+}
 
 /* --- Metrics Bar --- */
 .metrics {
@@ -252,17 +260,30 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 8px 14px;
+  gap: 4px 14px;
   justify-content: space-between;
 }
 .job-title { font-weight: 700; font-size: 1.02rem; }
 .job-meta { color: var(--muted); font-size: 0.92rem; }
 .job-location { color: var(--muted); }
-.bullets { margin: 8px 0 0 1.05rem; font-size: 0.95rem; }
-.bullets li { margin: 6px 0; }
+.bullets {
+  margin: 8px 0 0 1.05rem;
+  font-size: 0.95rem;
+  padding-left: 0;
+}
+.bullets li {
+  margin: 6px 0;
+  overflow-wrap: break-word;
+}
 
 /* --- Education & Certifications --- */
-.edu-item, .cert-item { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; padding: 10px 0; border-bottom: 1px dashed var(--border); }
+.edu-item, .cert-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 10px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+}
 .edu-item:last-child, .cert-item:last-child { border-bottom: 0; }
 .minor { color: var(--muted); font-size: 0.95rem; }
 
@@ -278,15 +299,211 @@ h2 {
   border-radius: 10px;
   cursor: pointer;
   box-shadow: var(--shadow);
+  z-index: 100;
 }
 .print-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-/* --- Print Styles --- */
+/* =================================
+   RESPONSIVE — Tablet (≤ 860px)
+   ================================= */
+@media (max-width: 860px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px 20px;
+    gap: 10px;
+  }
+  .contact {
+    text-align: left;
+    font-size: 0.92rem;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  aside {
+    position: static;
+  }
+  .job-header {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+/* =================================
+   RESPONSIVE — Mobile (≤ 600px)
+   ================================= */
+@media (max-width: 600px) {
+  .wrapper {
+    margin: 10px auto 60px;
+    padding: 0 14px;
+    padding-left: max(14px, env(safe-area-inset-left));
+    padding-right: max(14px, env(safe-area-inset-right));
+  }
+  header {
+    padding: 18px 16px;
+    border-radius: 10px;
+    gap: 8px;
+  }
+  .identity .name {
+    font-size: 1.45rem;
+  }
+  .identity .tagline {
+    font-size: 0.85rem;
+  }
+  .contact {
+    font-size: 0.85rem;
+    gap: 4px;
+  }
+  .contact a {
+    min-height: 40px;
+    overflow-wrap: break-word;
+    word-break: break-all;
+  }
+  .grid {
+    gap: 12px;
+    margin-top: 12px;
+  }
+  aside {
+    border-radius: 10px;
+  }
+  aside section {
+    padding: 14px;
+  }
+  main > section {
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: 0.85rem;
+  }
+  .metrics {
+    gap: 6px;
+  }
+  .metric {
+    padding: 10px 4px;
+  }
+  .metric-value {
+    font-size: 1.15rem;
+  }
+  .metric-label {
+    font-size: 0.65rem;
+  }
+  .summary p {
+    font-size: 0.87rem;
+  }
+  .chip {
+    font-size: 0.8rem;
+    padding: 4px 9px;
+  }
+  .skill-group {
+    margin-bottom: 10px;
+  }
+  .skill-group-label {
+    font-size: 0.68rem;
+  }
+  .timeline {
+    padding-left: 20px;
+  }
+  .timeline::before {
+    left: 4px;
+  }
+  .job::before {
+    left: -18px;
+    width: 10px;
+    height: 10px;
+  }
+  .job-title {
+    font-size: 0.95rem;
+  }
+  .job-meta {
+    font-size: 0.82rem;
+  }
+  .bullets {
+    margin: 6px 0 0 0.6rem;
+    font-size: 0.87rem;
+  }
+  .bullets li {
+    margin: 5px 0;
+  }
+  .edu-item, .cert-item {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .print-btn {
+    right: 12px;
+    bottom: 12px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    border-radius: 8px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
+}
+
+/* =================================
+   RESPONSIVE — Tiny (≤ 360px)
+   ================================= */
+@media (max-width: 360px) {
+  .wrapper {
+    padding: 0 10px;
+  }
+  header {
+    padding: 14px 12px;
+  }
+  .identity .name {
+    font-size: 1.25rem;
+  }
+  .identity .tagline {
+    font-size: 0.78rem;
+  }
+  .contact {
+    font-size: 0.78rem;
+  }
+  .metrics {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+  .metric {
+    padding: 8px 2px;
+  }
+  .metric-value {
+    font-size: 1rem;
+  }
+  .metric-label {
+    font-size: 0.6rem;
+  }
+  .chip {
+    font-size: 0.75rem;
+    padding: 3px 7px;
+  }
+  .timeline {
+    padding-left: 16px;
+  }
+  .timeline::before {
+    left: 3px;
+  }
+  .job::before {
+    left: -15px;
+    width: 8px;
+    height: 8px;
+  }
+  .bullets {
+    margin: 4px 0 0 0.4rem;
+    font-size: 0.82rem;
+  }
+}
+
+/* =================================
+   PRINT
+   ================================= */
 @media print {
   .print-btn { display: none; }
-  body { background: #fff; }
+  body { background: #fff; overflow: visible; }
+  .wrapper { margin: 0; padding: 0; max-width: 100%; }
   header, aside, aside section, main > section { box-shadow: none; border-color: #ddd; border-radius: 0; }
   aside { position: static; }
+  .grid { gap: 16px; }
   .timeline::before { background: #ccc; }
   .job::before { background: #555; box-shadow: 0 0 0 2px #555; }
   a { color: inherit; text-decoration: none; }
