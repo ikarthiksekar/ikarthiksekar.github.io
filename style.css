@@ -80,7 +80,7 @@ header {
   flex-shrink: 0;
 }
 .identity .name {
-  font-size: clamp(24px, 3.2vw, 34px);
+  font-size: clamp(28px, 3.8vw, 40px);
   font-weight: 800;
   margin: 0;
   letter-spacing: .2px;
@@ -120,8 +120,6 @@ aside {
   border-radius: 14px;
   padding: 0;
   box-shadow: var(--shadow);
-  position: sticky;
-  top: 20px;
   align-self: start;
 }
 aside section {
