@@ -5,10 +5,161 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Karthik Sekar – Resume</title>
   <meta name="description" content="Professional resume of Karthik Sekar – Quality Engineering Lead." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --card: #ffffff;
+      --text: #1b1f23;
+      --muted: #5b6b7a;
+      --accent: #2b6cb0;
+      --border: #e5e7eb;
+      --chip-bg: #eff6ff;
+      --shadow: 0 1px 2px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.06);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1216;
+        --card: #12161b;
+        --text: #e7edf3;
+        --muted: #9aa6b2;
+        --accent: #7cb3ff;
+        --border: #202630;
+        --chip-bg: #0f1a2b;
+        --shadow: none;
+      }
+      a { color: #9cc4ff; }
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .wrapper {
+      max-width: 1000px;
+      margin: 28px auto 80px;
+      padding: 0 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 24px;
+      background: linear-gradient(180deg, rgba(43,108,176,0.06), transparent);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+    .identity .name {
+      font-size: clamp(24px, 3.2vw, 34px);
+      font-weight: 800;
+      margin: 0;
+      letter-spacing: .2px;
+    }
+    .identity .tagline {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+    .contact {
+      display: grid;
+      gap: 6px;
+      text-align: right;
+      font-size: 0.98rem;
+    }
+    .contact a { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--border); }
+    .contact a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    @media (max-width: 860px) {
+      header { flex-direction: column; align-items: flex-start; }
+      .contact { text-align: left; }
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    aside, section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--accent);
+      margin: 0 0 10px;
+    }
+
+    .summary p { margin: 8px 0 0; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      background: var(--chip-bg);
+      color: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+
+    .job { margin-bottom: 18px; }
+    .job:last-child { margin-bottom: 0; }
+    .job-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 14px;
+      justify-content: space-between;
+    }
+    .job-title { font-weight: 700; }
+    .job-meta { color: var(--muted); }
+    .job-location { color: var(--muted); }
+    .bullets { margin: 8px 0 0 1.05rem; }
+    .bullets li { margin: 6px 0; }
+
+    .edu-item, .cert-item { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; padding: 10px 0; border-bottom: 1px dashed var(--border); }
+    .edu-item:last-child, .cert-item:last-child { border-bottom: 0; }
+    .minor { color: var(--muted); font-size: 0.95rem; }
+
+    .print-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+    .print-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    @media print {
+      .print-btn { display: none; }
+      body { background: #fff; }
+      header, aside, section { box-shadow: none; border-color: #ddd; border-radius: 0; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
 </head>
 <body>
   <div class="wrapper">
@@ -16,15 +167,11 @@
     <!-- HEADER -->
     <header role="banner" aria-label="Resume header">
       <div class="identity">
-        <div class="monogram" aria-hidden="true">KS</div>
-        <div>
         <h1 class="name">Karthik Sekar</h1>
         <p class="tagline">Quality Engineering Lead · Test Automation · GenAI · 17+ Years</p>
-        </div>
       </div>
       <address class="contact" aria-label="Contact information">
         <div>📞 437-522-4774</div>
-        <div>✉️ <a href="mailto:karthiksekar03@gmail.com">karthiksekar03@gmail.com</a></div>
         <div>🔗 <a href="https://www.linkedin.com/in/ikarthiksekar/">linkedin.com/in/ikarthiksekar</a></div>
         <div>📍 Ontario, Canada</div>
       </address>
@@ -35,20 +182,6 @@
       <aside aria-label="Sidebar">
         <section class="summary" aria-labelledby="summary">
           <h2 id="summary">Summary</h2>
-          <div class="metrics">
-            <div class="metric">
-              <div class="metric-value">17+</div>
-              <div class="metric-label">Years Exp.</div>
-            </div>
-            <div class="metric">
-              <div class="metric-value">5+</div>
-              <div class="metric-label">Domains</div>
-            </div>
-            <div class="metric">
-              <div class="metric-value">10+</div>
-              <div class="metric-label">Team Led</div>
-            </div>
-          </div>
           <p>
             Seasoned Quality Engineering Lead with 17+ years of global experience in functional and automation testing, quality engineering strategy, and people/project management across Insurance, Media &amp; Entertainment, eCommerce, Payments, and B2B domains. Demonstrated success in delivering defect-free, high-impact solutions by streamlining QA processes and driving innovation through custom tools and GenAI-driven accelerators.
           </p>
@@ -56,67 +189,26 @@
 
         <section aria-labelledby="skills">
           <h2 id="skills">Skills</h2>
-
-          <div class="skill-group">
-            <div class="skill-group-label">Web Automation</div>
-            <div class="chips">
-              <span class="chip">Java</span>
-              <span class="chip">Selenium</span>
-              <span class="chip">TestNG</span>
-              <span class="chip">Cucumber</span>
-              <span class="chip">Maven</span>
-            </div>
+          <div class="chips">
+            <span class="chip">Java</span>
+            <span class="chip">Selenium</span>
+            <span class="chip">TestNG</span>
+            <span class="chip">Cucumber</span>
+            <span class="chip">Maven</span>
+            <span class="chip">RestAssured</span>
+            <span class="chip">ReadyAPI</span>
+            <span class="chip">Postman</span>
+            <span class="chip">Python / Flask</span>
+            <span class="chip">SQL</span>
+            <span class="chip">Azure OpenAI</span>
+            <span class="chip">GenAI / GitHub Copilot</span>
+            <span class="chip">GitLab CI/CD</span>
+            <span class="chip">Jira / QMetry</span>
+            <span class="chip">Confluence</span>
+            <span class="chip">ElasticSearch / Kibana</span>
+            <span class="chip">Grafana</span>
+            <span class="chip">Shift-Left Testing</span>
           </div>
-
-          <div class="skill-group">
-            <div class="skill-group-label">API Testing</div>
-            <div class="chips">
-              <span class="chip">RestAssured</span>
-              <span class="chip">ReadyAPI</span>
-              <span class="chip">Postman</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <div class="skill-group-label">Languages &amp; Frameworks</div>
-            <div class="chips">
-              <span class="chip">Python / Flask</span>
-              <span class="chip">SQL</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <div class="skill-group-label">AI &amp; GenAI</div>
-            <div class="chips">
-              <span class="chip">Azure OpenAI</span>
-              <span class="chip">GenAI / GitHub Copilot</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <div class="skill-group-label">CI/CD &amp; DevOps</div>
-            <div class="chips">
-              <span class="chip">GitLab CI/CD</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <div class="skill-group-label">Tools &amp; Reporting</div>
-            <div class="chips">
-              <span class="chip">Jira / QMetry</span>
-              <span class="chip">Confluence</span>
-              <span class="chip">ElasticSearch / Kibana</span>
-              <span class="chip">Grafana</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <div class="skill-group-label">Methodology</div>
-            <div class="chips">
-              <span class="chip">Shift-Left Testing</span>
-            </div>
-          </div>
-
         </section>
       </aside>
 
@@ -125,7 +217,6 @@
         <section aria-labelledby="experience">
           <h2 id="experience">Work Experience</h2>
 
-          <div class="timeline">
           <!-- NBCUniversal – Universal Orlando -->
           <article class="job" aria-labelledby="job1-title">
             <div class="job-header">
@@ -199,9 +290,6 @@
                 <div id="job4-title" class="job-title">Senior QA Analyst / Lead</div>
                 <div class="job-meta">Dow Jones WSJ – Mainframe Migration • Offshore, India</div>
               </div>
-              <div class="job-meta">
-                <time datetime="2011-10">Oct 2011</time> – <time datetime="2014-06">Jun 2014</time>
-              </div>
             </div>
             <ul class="bullets">
               <li>Developed QA test strategies, test scenarios, and artifacts ensuring comprehensive coverage.</li>
@@ -216,9 +304,6 @@
               <div>
                 <div id="job5-title" class="job-title">Senior QA Analyst</div>
                 <div class="job-meta">Prudential Financial • Offshore, India</div>
-              </div>
-              <div class="job-meta">
-                <time datetime="2008-05">May 2008</time> – <time datetime="2011-09">Sep 2011</time>
               </div>
             </div>
             <ul class="bullets">
@@ -235,14 +320,13 @@
                 <div class="job-meta">Hutchison UK – 3G Mobile Testing • Offshore, India</div>
               </div>
               <div class="job-meta">
-                <time datetime="2007-07">Jul 2007</time> – <time datetime="2008-04">Apr 2008</time>
+                <time datetime="2007-07">Jul 2007</time> –
               </div>
             </div>
             <ul class="bullets">
               <li>Performed mobile device testing, test planning, and defect management, ensuring quality across 3G mobile services.</li>
             </ul>
           </article>
-          </div><!-- /.timeline -->
         </section>
 
         <section aria-labelledby="education">
