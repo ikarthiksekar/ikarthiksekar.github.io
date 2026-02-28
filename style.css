@@ -110,6 +110,7 @@ header {
   header { flex-direction: column; align-items: flex-start; }
   .contact { text-align: left; }
   .grid { grid-template-columns: 1fr; }
+  aside { position: static; }
 }
 
 /* --- Sidebar --- */
