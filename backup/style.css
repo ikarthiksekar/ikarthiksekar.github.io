@@ -319,34 +319,6 @@ h2 {
 .bullets strong { font-weight: 700; }
 
 /* ============================================================
-   < 900px — Mobile/Tablet: reorder sections for better reading
-   Summary first, then highlights, then experience, then sidebar.
-   ============================================================ */
-@media (max-width: 899px) {
-  .grid {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  /* Flatten aside/main so their sections become direct flex children
-     and can be individually reordered via `order`. */
-  aside, main { display: contents; }
-
-  /* Re-apply spacing now that sections are siblings of .grid */
-  .grid > section,
-  aside > section,
-  main > section { margin-bottom: 0; }
-
-  section[aria-labelledby="profile"]      { order: 1; }
-  section[aria-labelledby="key-metrics"]  { order: 2; }
-  section[aria-labelledby="ai-agents"]    { order: 3; }
-  section[aria-labelledby="core-skills"]  { order: 4; }
-  section[aria-labelledby="domains"]      { order: 5; }
-  section[aria-labelledby="experience"]   { order: 6; }
-  section[aria-labelledby="education"]    { order: 7; }
-}
-
-/* ============================================================
    ≥ 720px — Tablet: header goes side-by-side
    ============================================================ */
 @media (min-width: 720px) {
